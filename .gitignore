@@ -5,6 +5,9 @@ notes.txt
 Materials/
 temp/
 *.db
+# Model files
+*.pkl
+*.joblib
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
