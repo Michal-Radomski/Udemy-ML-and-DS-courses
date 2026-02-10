@@ -8,6 +8,7 @@ temp/
 # Model files
 *.pkl
 *.joblib
+04_ML_DS_Bootcamp/03/data/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
