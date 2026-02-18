@@ -74,3 +74,20 @@ print(li.index("d", 0, 5))  # 3
 print("a" in li)  # we use this to avoid the error. -> True
 print("x" in li)  # False
 print(li.count("d"))  # 2
+
+
+li2 = [1, 2, 5, 6, 7, 4, 56, 38, 0]
+print(li2.sort())  # None
+print(li2)  # [0, 1, 2, 4, 5, 6, 7, 38, 56]
+
+print(li2.reverse())  # None
+print(li2)  # [56, 38, 7, 6, 5, 4, 2, 1, 0
+
+print("Sorted function")
+print(
+    sorted(li2)
+)  # its a function which sort the list, but it does not modify the list permanently. -> # [0, 1, 2, 4, 5, 6, 7, 38, 56]
+print(li2)  # [56, 38, 7, 6, 5, 4, 2, 1, 0]
+
+new_li2 = li2.copy()  # same as doing new_li = li[:]
+print(new_li2)  # [56, 38, 7, 6, 5, 4, 2, 1, 0]
