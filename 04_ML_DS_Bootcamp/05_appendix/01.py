@@ -161,3 +161,36 @@ current_year = datetime.now().year
 birth_year = input("What year were you born?\n")  # input -> type:string!
 age = current_year - int(birth_year)
 print(f"Your age is {age} years.")
+
+# * All values are considered "truthy" except for the following, which are "falsy":
+# None
+# False
+# 0
+# 0.0
+# 0j
+# Decimal(0)
+# Fraction(0, 1)
+# [] - an empty list
+# {} - an empty dict
+# () - an empty tuple
+# '' - an empty str
+# b'' - an empty bytes
+# set() - an empty set
+# an empty range, like range(0)
+# objects for which
+#     obj.__bool__() returns False
+#     obj.__len__() returns 0
+
+# * Exercise Password Checker
+username = input("Enter your username:\t")
+password = input("Enter you password:\t")
+
+secret_password = len(password) * "*"
+print(secret_password)
+print(
+    f"Hey {username}, your password {secret_password} is {len(password)}  letters long."
+)
+# * In JS/TS
+# * const password = "hello123";
+# * const secret_password = "*".repeat(password.length);
+# * console.log(secret_password); // "********"
