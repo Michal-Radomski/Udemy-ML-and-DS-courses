@@ -264,3 +264,70 @@ print(z)  # 3
 print(my_tuple.count(5))  # 1
 print(my_tuple.index(5))  # 4
 print(type(my_tuple))  # <class 'tuple'>
+
+
+# * Sets -> unordered collection of unique objects
+# Sets in Python are mutable, which means their contents can be changed after creation. You can add, remove, or update elements in a set using methods like add(), remove(), discard(), update(), and clear(). However, while sets themselves are mutable, the elements they contain must be immutable (hashable) types, so mutable objects like lists cannot be elements of a set. This mutability allows sets to be modified dynamically as needed.
+my_set = {1, 2, 3, 4, 5, 5, 5}
+my_set.add(100)
+my_set.add(2)
+print(my_set)  # {1, 2, 3, 4, 5, 100}
+# print(my_set[0])  #* we cannot do this, it produces an error, because set is an unordered collection of objects
+print(len(my_set))  # 6
+
+print(5 in my_set)  # True
+print(my_set)  # {1, 2, 3, 4, 5, 100}
+
+print(list(my_set))  # [1, 2, 3, 4, 5, 100]
+
+new_set = my_set.copy()
+print(my_set.clear())  # None
+print(my_set)  # set()
+print(new_set)  # {1, 2, 3, 4, 5, 100}
+
+my_list = [1, 2, 3, 4, 5, 5, 5]
+print(
+    set(my_list)
+)  # this way we can remove the duplicate items from the list -> {1, 2, 3, 4, 5}
+
+my_set = {1, 2, 3, 4, 5}
+your_set = {4, 5, 6, 7, 8, 9, 10}
+# This is very similar to Venn diagrams.
+
+print("\ndifference")
+print(my_set.difference(your_set))  # {1, 2, 3}
+print(my_set)  # {1, 2, 3, 4, 5}
+
+print("\ndiscard")
+print(my_set.discard(5))  # None
+print(my_set)  # {1, 2, 3, 4}
+
+print("\ndifference_update")
+print(my_set.difference_update(your_set))  # None
+print(my_set)  # {1, 2, 3}
+
+my_set = {1, 2, 3, 4, 5}
+
+print("\nintersection")
+print(my_set.intersection(your_set))  # {4, 5}
+print(my_set & your_set)  # {4, 5}
+
+print("\nisdisjoint")
+print(my_set.isdisjoint(your_set))  # False
+my_set = {1, 2, 3}
+print(my_set.isdisjoint(your_set))  # True
+
+print("\nissubset")
+print(my_set.issubset(your_set))  # False
+my_set = {4, 6, 8}
+print(my_set.issubset(your_set))  # True
+
+print("\nissuperset")
+print(my_set.issuperset(your_set))  # False
+print(your_set.issuperset(my_set))  # True
+
+print("\nunion")
+my_set = {1, 2, 3, 4, 5}
+print(my_set.union(your_set))  # {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+# or
+print(my_set | your_set)  # {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
