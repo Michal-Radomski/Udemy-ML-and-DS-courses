@@ -124,7 +124,7 @@ weapons = None
 print(weapons)  # None -> null in JS/TS
 
 
-# Dictionaries -> unordered key-value pair. Key can't be mutable (can change). Key can be: string, number, boolean. Key must be unique!
+# Dictionaries -> unordered key-value pair. Key can't be mutable (can change). Key can be: string, number, boolean, tuple. Key must be unique!
 my_dict = {"a": [1, 2, 3], "b": "hello", "c": True}
 print(type(my_dict))  # <class 'dict'>
 
@@ -212,3 +212,55 @@ new.clear()  # Modify copy only
 
 print("new:", new)  # new: {}
 print("original:", original)  # original: {1: 'geeks', 2: 'for'}
+
+
+# * Tuples (an immutable list) -> have only two methods:  count() and index()
+my_tuple = (1, 2, 3, 4, 5, 2)
+print(my_tuple[0])  # 1
+print(
+    my_tuple[1:2]
+)  # be careful here, we also get a 'comma' when we just store a single tuple value -> (2,)
+print(my_tuple[0:2])  # (1, 2)
+print(my_tuple[::-2])  # (2, 4, 2)
+print(2 in my_tuple)  # True
+
+# my_tuple[0] = 4     # it will be an error, because tuple are immutable
+print(my_tuple)  # (1, 2, 3, 4, 5, 2)
+
+print(my_tuple.count(2))  # 2
+print(my_tuple.index(5))  # 4
+
+my_dict = {"age": 45, (1, 2): "hello"}
+print(my_dict)  # {'age': 45, (1, 2): 'hello'}
+print(my_dict.items())  # returns key:value pair as a tuple
+print(my_dict[(1, 2)])  # hello
+
+a, b, c, *other = (
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+)  # it stores as list if the variable has more than 1 item, otherwise as int.
+print(a)  # 1
+print(type(a))  # <class 'int'>
+print(other)  # [4, 5, 6, 7, 8, 9]
+print(type(other))  # <class 'list'>
+
+
+my_tuple = (1, 2, 3, 4, 5)
+print(my_tuple[1])  # 2
+print(5 in my_tuple)  # True
+print(my_tuple)  # (1, 2, 3, 4, 5)
+
+x, y, z, *other = (1, 2, 3, 4, 5)
+print(x)  # 1
+print(z)  # 3
+
+print(my_tuple.count(5))  # 1
+print(my_tuple.index(5))  # 4
+print(type(my_tuple))  # <class 'tuple'>
