@@ -99,7 +99,7 @@ print(1 < 2 < 3 < 4)  # True
 print(not (True))  # False
 
 
-# * is vs ==
+# * is vs == (is checks location in the memory)
 print(True == 1)  # True
 print("" == 1)  # False
 print([] == 1)  # False
@@ -107,7 +107,7 @@ print(10 == 10.0)  # True
 print([] == [])  # True
 print()
 
-print(True == True)  # True
+print(True == True)  # True  # noqa: E712
 print("1" == 1)  # False
 print(int("1") == 1)  # True
 print([1, 2, 3] == [1, 2, 3])  # True
