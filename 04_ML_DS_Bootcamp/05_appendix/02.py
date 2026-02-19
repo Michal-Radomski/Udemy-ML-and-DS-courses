@@ -124,7 +124,7 @@ weapons = None
 print(weapons)  # None -> null in JS/TS
 
 
-# Dictionaries -> unordered key-value pair
+# Dictionaries -> unordered key-value pair. Key can't be mutable (can change). Key can be: string, number, boolean. Key must be unique!
 my_dict = {"a": [1, 2, 3], "b": "hello", "c": True}
 print(type(my_dict))  # <class 'dict'>
 
@@ -136,3 +136,79 @@ my_list = [
 print(my_dict["a"])  # [1, 2, 3]
 print(my_dict["a"][1])  # 2
 print(my_list[1]["a"][2])  # 6
+
+# * Dictionary Methods
+user = {"name": "john", "sex": "M", "age": 20}
+# * print(user["height"]) # this will give us error, as height doesn't exit in the dictionary.
+
+print(user.get("height"))  # None
+
+print(
+    user.get("height", 6)
+)  # if the key value pair doesn't exit, then it will write the default value.
+print(user)  # 6
+
+# new way to create a dictionary
+user2 = dict(name="saurabh", age=25)
+print(user2)  # {'name': 'saurabh', 'age': 25}
+print(user2["name"])  # saurabh
+
+
+user = {"name": "john", "sex": "M", "age": 20}
+
+print("john" in user.items())  # False
+print("sex" in user)  # True
+
+print("john" in user.values())  # True
+print("sex" in user.keys())  # True
+
+print(
+    user.items()
+)  # returns a list containing a tuple for each key value pair -> dict_items([('name', 'john'), ('sex', 'M'), ('age', 20)])
+
+print(user.clear())  # None
+print(user)  # {}
+
+
+user2 = {"name": "pepy", "sex": "F", "age": 45}
+
+print(user2.pop("age"))  # 45
+print(user2)  # {'name': 'pepy', 'sex': 'F'}
+
+print(user2.update({"sex": "M"}))  # None
+print(user2)  # {'name': 'pepy', 'sex': 'M'}
+
+print(user2.update({"size": 32}))  # None
+print(user2)  # {'name': 'pepy', 'sex': 'M', 'size': 32}
+
+print(
+    user2.popitem()
+)  # it randomly pops an item -> ('size', 32), #* Python 3.7 remove the last item!
+print(user2)  # {'name': 'pepy', 'sex': 'M'}
+
+print(user2.keys())  # {'name': 'pepy', 'sex': 'M'}
+print(user2.values())  # {'name': 'pepy', 'sex': 'M'}
+
+
+user3 = {
+    "age": 45,
+    "username": "john",
+    "weapons": ["gun"],
+    "is_active": True,
+    "clan": "army",
+}
+
+user3["weapons"].append("shield")
+user3["weapons"] = user3["weapons"] + ["pistol"]
+print(
+    user3
+)  # {'age': 45, 'username': 'john', 'weapons': ['gun', 'shield', 'pistol'], 'is_active': True, 'clan': 'army'}
+
+
+original = {1: "geeks", 2: "for"}
+new = original.copy()  # Shallow copy
+
+new.clear()  # Modify copy only
+
+print("new:", new)  # new: {}
+print("original:", original)  # original: {1: 'geeks', 2: 'for'}
