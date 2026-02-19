@@ -1,3 +1,6 @@
+from decimal import Decimal
+from fractions import Fraction
+
 # * Conditional Logic
 a = True
 b = False
@@ -44,3 +47,24 @@ print(bool())  # False
 # objects for which
 #     obj.__bool__() returns False
 #     obj.__len__() returns 0
+
+
+zero_dec = Decimal(0)
+print(zero_dec)  # Decimal('0')
+print(zero_dec == 0)  # True [web:11]
+
+zero_frac = Fraction(0, 1)
+print(zero_frac)  # 0
+print(float(zero_frac))  # 0.0 [web:11]
+
+
+# * Ternary Operator
+is_friend = True
+can_message = "message allowed" if is_friend else "not allowed to message"
+print(can_message)  # message allowed
+
+# * Short Circuiting
+is_friend = True
+is_user = True
+print(is_friend and is_user)  # True
+print(is_friend or is_user)  # True
