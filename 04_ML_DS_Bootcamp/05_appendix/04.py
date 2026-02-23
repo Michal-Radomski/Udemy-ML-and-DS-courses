@@ -180,3 +180,58 @@ for row in picture:
 #    *
 #    *
 #    *
+
+
+# * Exercise Find Duplicates
+some_list = ["a", "b", "c", "b", "d", "m", "n", "n"]
+duplicates = []
+
+for value in some_list:
+    if some_list.count(value) > 1:
+        if value not in duplicates:
+            duplicates.append(value)
+
+print(duplicates)  # ['b', 'n']
+
+
+# * Functions
+# Positional *Parameters*
+def say_hello(name, age):
+    print(f"Hi {name}, your age is {age}")
+
+
+# Default *Parameters*
+def say_hello2(name="jojo", age=25):
+    print(f"Hi {name}, your age is {age}")
+
+
+# Positional *Arguments*
+say_hello("Michal", 27)  # Hi Michal, your age is 27
+
+# Default *Arguments*
+say_hello2()  # Hi jojo, your age is 25
+say_hello2("Michal")  # Hi Michal, your age is 25
+
+# Keyword *Arguments* -> Bas Practice!
+say_hello(age=89, name="YOHO")  # Hi YOHO, your age is 89
+
+
+# * Keyword: Return
+def sum1(num1, num2):
+    return num1 + num2
+
+
+total = sum1(10, 5)
+print(sum1(10, total))  # 25
+print()
+
+
+def sum2(num1, num2):
+    def another_func(n1, n2):
+        return n1 + n2
+
+    return another_func(num1, num2)
+
+
+total = sum2(10, 20)
+print(total)  # 30
