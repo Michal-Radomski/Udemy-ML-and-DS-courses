@@ -235,3 +235,31 @@ def sum2(num1, num2):
 
 total = sum2(10, 20)
 print(total)  # 30
+
+
+# * Docstrings
+def test(a):
+    """
+    info: This is test function which print the argument passed
+    """
+    print(a)
+
+
+help(test)
+print(test.__doc__)  # info: This is test function which print the argument passed
+
+
+# * Clean Code
+def is_even(num):
+    return num % 2 == 0
+
+
+print(is_even(50))  # True
+
+
+def is_odd(num):
+    return num % 2 == 1
+
+
+print(is_odd(5))  # True
+print(is_odd(10))  # False
