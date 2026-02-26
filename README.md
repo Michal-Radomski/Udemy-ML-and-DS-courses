@@ -12,3 +12,4 @@ Files created during Machine Learning and Data Science courses from Udemy.com
 
 5. [Data Science, Machine Learning, Data Analysis, Python & R](https://www.udemy.com/course/data-science-machine-learning-data-analysis-python-r)
    (only Python)
+6. [Mastering Neural Networks with Keras](https://www.udemy.com/course/beginners-guide-to-implementing-neural-networks-with-keras)
