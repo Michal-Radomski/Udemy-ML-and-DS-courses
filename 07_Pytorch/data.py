@@ -2,6 +2,7 @@ import json
 
 import torch  # type: ignore[import-not-found]
 from datasets import load_dataset  # type: ignore[import-not-found]
+from torch.utils.data import Dataset  # type: ignore[import-not-found]
 
 
 def load_bookcorpus_data(n=100000):
@@ -56,6 +57,21 @@ class CharTokenizer:
         return CharTokenizer(characters)
 
 
+class CharDataset(Dataset):
+    def __init__(self, data, tokenizer):
+        super().__init__()
+        self.data = data
+        self.tokenizer = tokenizer
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, index):
+        sentence = self.data[index]
+        encoded = self.tokenizer.encode(sentence)
+        return encoded
+
+
 if __name__ == "__main__":
     data = load_bookcorpus_data()
     # print(data)
@@ -64,11 +80,14 @@ if __name__ == "__main__":
 
     tokenizer = CharTokenizer(characters)
     sentence = "i like dogs"
-    encoded = tokenizer.encode(sentence)
-    # print(encoded)
+    # encoded = tokenizer.encode(sentence)
+    # # print(encoded)
 
-    decoded = tokenizer.decode(encoded)
-    # print(decoded)
+    # decoded = tokenizer.decode(encoded)
+    # # print(decoded)
 
-    tokenizer.save("tokenizer.json")
-    loaded_tokenizer = CharTokenizer.load("tokenizer.json")
+    # tokenizer.save("tokenizer.json")
+    # loaded_tokenizer = CharTokenizer.load("tokenizer.json")
+
+    dataset = CharDataset(data, tokenizer)
+    print(dataset[0])
