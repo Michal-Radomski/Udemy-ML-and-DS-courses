@@ -1,8 +1,9 @@
 import json
 
+import pytorch_lightning as L  # type: ignore[import-not-found]
 import torch  # type: ignore[import-not-found]
 from datasets import load_dataset  # type: ignore[import-not-found]
-from torch.utils.data import Dataset  # type: ignore[import-not-found]
+from torch.utils.data import DataLoader, Dataset  # type: ignore[import-not-found]
 
 
 def load_bookcorpus_data(n=100000):
@@ -72,6 +73,43 @@ class CharDataset(Dataset):
         return encoded
 
 
+class CharDataModule(L.LightningDataModule):
+    def __init__(self, data, tokenizer, batch_size=128):
+        super().__init__()
+        self.tokenizer = tokenizer
+        self.batch_size = batch_size
+
+        train_data, val_data, test_data = self.split(data)
+
+        self.train_dataset = CharDataset(train_data, tokenizer)
+        self.val_dataset = CharDataset(val_data, tokenizer)
+        self.test_dataset = CharDataset(test_data, tokenizer)
+
+    def split(self, data):
+        n_train = int(len(data) * 0.8)
+        n_val = int(len(data) * 0.1)
+
+        train_data = data[:n_train]
+        val_data = data[n_train : n_train + n_val]
+        test_data = data[n_train + n_val :]
+        return train_data, val_data, test_data
+
+    def common_dataloader(self, split):
+        dataset = getattr(self, f"{split}_dataset")
+        return DataLoader(
+            dataset, batch_size=self.batch_size, shuffle=(split == "train")
+        )
+
+    def train_dataloader(self):
+        return self.common_dataloader("train")
+
+    def val_dataloader(self):
+        return self.common_dataloader("val")
+
+    def test_dataloader(self):
+        return self.common_dataloader("test")
+
+
 if __name__ == "__main__":
     data = load_bookcorpus_data()
     # print(data)
@@ -79,7 +117,7 @@ if __name__ == "__main__":
     # print(characters)
 
     tokenizer = CharTokenizer(characters)
-    sentence = "i like dogs"
+    # sentence = "i like dogs"
     # encoded = tokenizer.encode(sentence)
     # # print(encoded)
 
@@ -89,5 +127,8 @@ if __name__ == "__main__":
     # tokenizer.save("tokenizer.json")
     # loaded_tokenizer = CharTokenizer.load("tokenizer.json")
 
-    dataset = CharDataset(data, tokenizer)
-    print(dataset[0])
+    # dataset = CharDataset(data, tokenizer)
+    # print(dataset[0])
+
+    datamodule = CharDataModule(data, tokenizer)
+    print(datamodule)
