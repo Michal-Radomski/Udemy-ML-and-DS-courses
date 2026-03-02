@@ -1,0 +1,74 @@
+import json
+
+import torch  # type: ignore[import-not-found]
+from datasets import load_dataset  # type: ignore[import-not-found]
+
+
+def load_bookcorpus_data(n=100000):
+    data = load_dataset("bookcorpus", split="train", trust_remote_code=True)[:n]
+    return data["text"]
+
+
+def find_characters_in_data(data):
+    characters = set()
+    for sentence in data:
+        characters.update(set(sentence))
+    return sorted(list(characters))
+
+
+class CharTokenizer:
+    def __init__(self, characters):
+        self.characters = characters
+
+        self.pad_token = 0
+        self.bos_token = 1
+        self.unk_token = 2
+
+        self.vocab_size = len(characters) + 3
+
+    def encode(self, sentence):
+        encoded = []
+        for char in sentence:
+            if char not in self.characters:
+                encoded.append(self.unk_token)
+            else:
+                encoded.append(self.characters.index(char) + 3)
+
+        return torch.LongTensor(encoded)
+
+    def decode(self, encoded):
+        output = ""
+        for idx in encoded:
+            if idx < 3:
+                continue
+            char = self.characters[idx - 3]
+            output += char
+        return output
+
+    def save(self, path):
+        with open(path, "w") as file:
+            json.dump(self.characters, file)
+
+    @staticmethod
+    def load(path):
+        with open(path, "r") as file:
+            characters = json.load(file)
+        return CharTokenizer(characters)
+
+
+if __name__ == "__main__":
+    data = load_bookcorpus_data()
+    # print(data)
+    characters = find_characters_in_data(data)
+    # print(characters)
+
+    tokenizer = CharTokenizer(characters)
+    sentence = "i like dogs"
+    encoded = tokenizer.encode(sentence)
+    # print(encoded)
+
+    decoded = tokenizer.decode(encoded)
+    # print(decoded)
+
+    tokenizer.save("tokenizer.json")
+    loaded_tokenizer = CharTokenizer.load("tokenizer.json")
