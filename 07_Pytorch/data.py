@@ -3,6 +3,7 @@ import json
 import pytorch_lightning as L  # type: ignore[import-not-found]
 import torch  # type: ignore[import-not-found]
 from datasets import load_dataset  # type: ignore[import-not-found]
+from torch.nn.utils.rnn import pad_sequence  # type: ignore[import-not-found]
 from torch.utils.data import DataLoader, Dataset  # type: ignore[import-not-found]
 
 
@@ -94,10 +95,18 @@ class CharDataModule(L.LightningDataModule):
         test_data = data[n_train + n_val :]
         return train_data, val_data, test_data
 
+    def collate_fn(self, samples):
+        return pad_sequence(
+            samples, batch_first=True, padding_value=self.tokenizer.pad_token
+        )
+
     def common_dataloader(self, split):
         dataset = getattr(self, f"{split}_dataset")
         return DataLoader(
-            dataset, batch_size=self.batch_size, shuffle=(split == "train")
+            dataset,
+            batch_size=self.batch_size,
+            shuffle=(split == "train"),
+            collate_fn=self.collate_fn,
         )
 
     def train_dataloader(self):
