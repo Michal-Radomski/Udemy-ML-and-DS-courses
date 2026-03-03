@@ -8,6 +8,7 @@ from data import CharTokenizer
 class Generator(L.LightningModule):
     def __init__(self, vocab_size, embedding_dim, hidden_size, tokenizer):
         super().__init__()
+        self.save_hyperparameters(ignore=["tokenizer"])
         self.emb_layer = nn.Embedding(vocab_size, embedding_dim)
         self.rnn_layer = nn.LSTM(embedding_dim, hidden_size, batch_first=True)
         self.out_layer = nn.Linear(hidden_size, vocab_size)
@@ -35,10 +36,18 @@ class Generator(L.LightningModule):
         return loss
 
     def validation_step(self, batch, batch_idx):
-        pass
+        inp = self.prepend_bos(batch)
+        out, _ = self(inp)
+        loss = self.loss_fn(out.transpose(2, 1), batch)
+        self.log("val_loss", loss, prog_bar=True)
+        return loss
 
     def test_step(self, batch, batch_idx):
-        pass
+        inp = self.prepend_bos(batch)
+        out, _ = self(inp)
+        loss = self.loss_fn(out.transpose(2, 1), batch)
+        self.log("test_loss", loss, prog_bar=True)
+        return loss
 
     def configure_optimizers(self):
         return optim.Adam(self.parameters(), lr=1e-4)
@@ -53,9 +62,9 @@ if __name__ == "__main__":
     datamodule = CharDataModule(data, tokenizer)
 
     generator = Generator(tokenizer.vocab_size, 128, 512, tokenizer)
-    trainer = L.Trainer()
-
+    trainer = L.Trainer(max_epochs=1)
     trainer.fit(model=generator, datamodule=datamodule)
+    trainer.test(model=generator, datamodule=datamodule)
 
     # fake_batch = torch.randint(0, tokenizer.vocab_size - 1, (3, 17))
     # out = generator(fake_batch)

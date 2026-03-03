@@ -7,7 +7,8 @@ from torch.nn.utils.rnn import pad_sequence  # type: ignore[import-not-found]
 from torch.utils.data import DataLoader, Dataset  # type: ignore[import-not-found]
 
 
-def load_bookcorpus_data(n=100000):
+# def load_bookcorpus_data(n=1000000):
+def load_bookcorpus_data(n=10000):
     data = load_dataset("bookcorpus", split="train", trust_remote_code=True)[:n]
     return data["text"]
 
