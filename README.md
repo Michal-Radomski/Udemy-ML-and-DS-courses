@@ -15,3 +15,5 @@ Files created during Machine Learning and Data Science courses from Udemy.com
 6. [Mastering Neural Networks with Keras](https://www.udemy.com/course/beginners-guide-to-implementing-neural-networks-with-keras)
 
 7. [Create a text generator in pytorch from scratch](https://www.udemy.com/course/create-a-text-generator-in-pytorch-from-scratch)
+
+8. [The Ultimate Beginners Guide to Natural Language Processing](https://www.udemy.com/course/the-ultimate-beginners-guide-to-natural-language-processing)
