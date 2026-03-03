@@ -52,6 +52,19 @@ class Generator(L.LightningModule):
     def configure_optimizers(self):
         return optim.Adam(self.parameters(), lr=1e-4)
 
+    def generate(self, prompt, n_tokens=200):
+        encoded_prompt = self.tokenizer.encode(prompt, add_bos_token=True)
+        out, hidden = self(encoded_prompt)
+        out = out[-1:]
+        next_token = torch.distributions.Categorical(out.softmax(-1)).sample()
+        generated_tokens = [next_token]
+        for _ in range(n_tokens):
+            out, hidden = self(next_token, hidden)
+            next_token = torch.distributions.Categorical(out.softmax(-1)).sample()
+            generated_tokens.append(next_token)
+        generated_tokens = torch.cat(generated_tokens, dim=0)
+        return self.tokenizer.decode(generated_tokens)
+
 
 if __name__ == "__main__":
     from data import CharDataModule, load_bookcorpus_data
@@ -65,6 +78,16 @@ if __name__ == "__main__":
     trainer = L.Trainer(max_epochs=1)
     trainer.fit(model=generator, datamodule=datamodule)
     trainer.test(model=generator, datamodule=datamodule)
+
+    # prompt = "a"
+    # encoded = tokenizer.encode(prompt, add_bos_token=True)
+    # out, _ = generator(encoded)
+    # print(out)
+
+    prompt = "i want to"
+    output = generator.generate(prompt)
+    print(output)
+    # * a.d sdsoseel h  . y . nn bs r.e i6i mrd  tsdt e.re  ,fndsof$t oho i ep tiu iedv t scbdre rro lwtedeaae bnitrrd eross th hl  t$ t lid suagrord p'  n .on   s   tioaines  aeld t fh  ,e hght 'he  yb. hnsry
 
     # fake_batch = torch.randint(0, tokenizer.vocab_size - 1, (3, 17))
     # out = generator(fake_batch)

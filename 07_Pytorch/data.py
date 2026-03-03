@@ -30,8 +30,11 @@ class CharTokenizer:
 
         self.vocab_size = len(characters) + 3
 
-    def encode(self, sentence):
+    def encode(self, sentence, add_bos_token=False):
         encoded = []
+        if add_bos_token:
+            encoded.append(self.bos_token)
+
         for char in sentence:
             if char not in self.characters:
                 encoded.append(self.unk_token)
