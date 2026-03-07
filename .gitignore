@@ -9,6 +9,7 @@ temp/
 *.pkl
 *.joblib
 04_ML_DS_Bootcamp/03/data/*
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
