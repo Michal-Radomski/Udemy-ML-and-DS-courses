@@ -19,3 +19,5 @@ Files created during Machine Learning and Data Science courses from Udemy.com
 8. [The Ultimate Beginners Guide to Natural Language Processing](https://www.udemy.com/course/the-ultimate-beginners-guide-to-natural-language-processing)
 
 9. [Data Mining for Business Analytics & Data Analysis in Python](https://www.udemy.com/course/data-mining-python)
+
+10. [Data Science: Modern Deep Learning in Python](https://www.udemy.com/course/data-science-deep-learning-in-theano-tensorflow)
