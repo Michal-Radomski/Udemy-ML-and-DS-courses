@@ -20,4 +20,4 @@ Files created during Machine Learning and Data Science courses from Udemy.com
 
 9. [Data Mining for Business Analytics & Data Analysis in Python](https://www.udemy.com/course/data-mining-python)
 
-10. [Data Science: Modern Deep Learning in Python](https://www.udemy.com/course/data-science-deep-learning-in-theano-tensorflow)
+10. [Deep learning basics for beginners](https://www.udemy.com/course/deep-learning-basics-for-beginners) I
